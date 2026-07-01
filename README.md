@@ -1,45 +1,40 @@
-# FFT-Gyroscope
-A gyroscopic motion analysis project using FFT for signal processing
+# 3-Axis FFT Gyroscopic Vibration Analysis Rig
 
-The FFT Gyro is an ongoing hardware project aimed at building a gyroscopic system capable of capturing rotational motion and analyzing vibration data using the **Fast Fourier Transform (FFT)**.  
-The project combines mechanical design, sensor integration, and signal-processing techniques to better understand motion behavior through frequency-domain analysis.
+A high-performance embedded systems and signal processing platform designed to capture real-time spatial motion and analyze structural vibration dynamics using a custom Fast Fourier Transform (FFT) pipeline. This project bridges precision mechanical design, high-frequency sensor integration, and optimized low-level C++ firmware to execute real-time frequency-domain analysis.
 
-## Project Overview
+---
 
-The goal is to design and develop a working gyroscope setup that can:
-- Capture rotational data through sensors.
-- Process signals using FFT to visualize frequency components.
-- Study vibration patterns and motion stability.
-This project explores the intersection of mechanical design, sensor electronics, and signal processing — with the long-term aim of achieving a compact and precise FFT-based gyroscope prototype.
+## System Architecture & Engineering Highlights
 
-## Current Progress
+The system is engineered to isolate, capture, and compute frequency components from a rotating gyroscopic frame to characterize mechanical harmonics and structural resonance.
 
--  Completed research on suitable sensors, slip rings, and FFT implementation methods.  
--  Fabricated inner and outer rings using aluminum rods (25 mm diameter).  
--  Currently testing mechanical alignment and encoder mounting.  
--  Preparing for electronics integration and FFT signal-processing setup.
--  Used precision-cut aluminum rods for better balancing of the gyroscopic frame.
-## Upcoming Work
+### 1. Mechanical Design & Signal Integrity
+*   **Dual Octagon Nested Gimbal:** Engineered a large-scale, precision-balanced dual octagon nested frame using 25mm aluminum rods and synchronized bearings to minimize structural misalignment.
+*   **Anti-Fatigue Routing Architecture:** Integrated a custom slip-ring and routing topology to eliminate wire fatigue, signal attenuation, and electromagnetic interference (EMI) during high-frequency rotation testing.
 
-- Mount the encoder and sensors on the outer ring.  
-- Begin data acquisition and FFT implementation.  
-- Calibrate system for smooth rotational motion.  
-- Document performance and signal-response observations.
+### 2. High-Performance Firmware (`firmware/src/main.cpp`)
+*   **Deterministic Fixed-Interval Sampling:** Utilized low-level hardware timers to sample the gyroscopic data at a rigid frequency (e.g., 1 kHz / 2 kHz), entirely eliminating sampling interval jitter that would skew Fourier calculations.
+*   **In-Place Radix-2 Cooley-Tukey FFT:** To bypass the heavy processing and memory overhead of generic math libraries, a custom, lightweight Radix-2 FFT function was written from scratch in optimized C++.
+*   **Fast Math Look-Up Tables (LUTs):** Replaced expensive runtime trigonometric operations (`std::sin()`, `std::cos()`) inside the tight execution loop with pre-computed Sine/Cosine Look-Up Tables to minimize calculation latency.
+*   **Resource-Constrained Memory Management:** Maximized strict 2 KB SRAM limitations on the 8-bit microcontroller architecture, implementing specialized circular buffers to stream synchronized 12-bit datasets via UART interrupts without data dropouts or signal jitter[cite: 3].
+
+---
+
+## Key Applications
+
+*   **Vibration Characterization:** Mapping motor harmonics, bearing defects, and structural degradation.
+*   **Flight Controller Optimization:** Utilizing frequency spectrum peaks to assist in tuning flight controller PID attenuation filters.
+
+---
 
 ## Repository Structure
 
-## Visuals & Documentation
-
-Photos of the inner and outer rings, fabrication steps, and design sketches will be added progressively as the project evolves.
-
-## Contributors
-Tanu Choudhary
-Siri Sadu 
-Rewa Talegaonkar
-Nandan
-Sravan
-
-(Project under active development — contributions, suggestions, and discussions are always welcome!)
-## License
-
-This project is shared for educational and research purposes. You’re welcome to explore, learn from, and build upon it — just credit the original work.
+```text
+├── firmware/
+│   ├── src/
+│   │   └── main.cpp         # Performance-optimized C++ firmware & custom FFT engine
+│   └── include/             # Trigonometric Look-Up Tables (LUTs) & register configs
+├── hardware/
+│   ├── 3D_models/           # CAD files for the nested gimbal brackets
+│   └── documentation/       # Mechanical schematics and wire routing diagrams
+└── README.md
