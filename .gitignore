@@ -1,0 +1,14 @@
+# Arduino / PlatformIO build artifacts
+.pio/
+.uno/
+build/
+bin/
+*.elf
+*.hex
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Local environment configuration
+.env
