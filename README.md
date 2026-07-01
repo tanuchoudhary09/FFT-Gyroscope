@@ -25,6 +25,9 @@ The system is engineered to isolate, capture, and compute frequency components f
 *   **Vibration Characterization:** Mapping motor harmonics, bearing defects, and structural degradation.
 *   **Flight Controller Optimization:** Utilizing frequency spectrum peaks to assist in tuning flight controller PID attenuation filters.
 
+##  Downloads & Hardware Assets
+The complete hardware assets and environment builds are packaged into stable binaries available in the project releases:
+* **[Download Gyro Training Simulator Snapshot ZIP](https://github.com/tanuchoudhary09/FFT-Gyroscope/releases/download/v1.0.0/gyro-training-simulator-1.snapshot.2.zip)**
 ---
 # Repository Structure
 ```text
