@@ -26,15 +26,14 @@ The system is engineered to isolate, capture, and compute frequency components f
 *   **Flight Controller Optimization:** Utilizing frequency spectrum peaks to assist in tuning flight controller PID attenuation filters.
 
 ---
-
-## Repository Structure
-
+# Repository Structure
 ```text
+├── .gitignore               # Excludes compiler outputs and local IDE settings
+├── README.md                # Master system documentation and project catalog
 ├── firmware/
-│   ├── src/
-│   │   └── main.cpp         # Performance-optimized C++ firmware & custom FFT engine
-│   └── include/             # Trigonometric Look-Up Tables (LUTs) & register configs
-├── hardware/
-│   ├── 3D_models/           # CAD files for the nested gimbal brackets
-│   └── documentation/       # Mechanical schematics and wire routing diagrams
-└── README.md
+│   └── src/
+│       └── main.cpp         # Multi-threaded, interrupt-driven sensor tracking firmware
+└── hardware/
+    ├── cad/                 # STEP/STL files for structural joints and encoder mounts
+    └── schematics/
+        └── README.md        # Pin allocation matrix and I2C/Interrupt routing maps
